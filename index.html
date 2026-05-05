@@ -1,112 +1,281 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voting System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        .voting-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-        .voting-option {
-            margin: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 150px; /* Define uma largura fixa para cada opção */
-        }
-        img {
-            height: 100px;
-            display: block;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        section {
-            margin: 20px;
-            padding: 10px;
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            background-color: #e8f5e9;
-        }
-        h2 {
-            color: #4CAF50;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Votação Premium</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #00ffcc;
+      text-shadow: 0 0 15px rgba(0,255,204,0.7);
+    }
+
+    .subtitulo {
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+      color: #dcdcdc;
+    }
+
+    .voting-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .voting-option {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .voting-option:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 12px 25px rgba(0,255,204,0.3);
+    }
+
+    .voting-option img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border: 3px solid rgba(255,255,255,0.2);
+    }
+
+    .voting-option h3 {
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #00ffcc, #0099ff);
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0,255,204,0.6);
+    }
+
+    .results {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .result-item {
+      margin: 15px 0;
+      text-align: left;
+    }
+
+    .result-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 25px;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00ffcc, #0099ff);
+      transition: width 0.5s ease;
+    }
+
+    .winner {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      color: gold;
+      text-shadow: 0 0 10px rgba(255,215,0,0.7);
+    }
+
+    .reset-btn {
+      margin-top: 30px;
+      background: linear-gradient(45deg, #ff4d4d, #ff9900);
+      color: white;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Votação</h1>
+  <h1>🍔 Sistema de Votação 🍕</h1>
+  <p class="subtitulo">Escolha seu favorito, porque claramente a humanidade precisa decidir isso.</p>
 
-<div class="voting-container">
+  <div class="voting-container">
+
     <div class="voting-option">
-        <img src="cachorro.webp" alt="Imagem de um cachorro"><br>
-        <button onclick="vote(1)">Opção A</button>
+      <img src="cachorro.webp" alt="Cachorro Quente">
+      <h3>Opção A</h3>
+      <button onclick="vote(0)">Votar</button>
     </div>
 
     <div class="voting-option">
-        <img src="hambur.png" alt="Imagem de um hambúrguer"><br>
-        <button onclick="vote(2)">Opção B</button>
+      <img src="hambur.png" alt="Hambúrguer">
+      <h3>Opção B</h3>
+      <button onclick="vote(1)">Votar</button>
     </div>
 
     <div class="voting-option">
-        <img src="esfirra.jpg" alt="Imagem de uma esfiha"><br>
-        <button onclick="vote(3)">Opção C</button>
+      <img src="esfirra.jpg" alt="Esfirra">
+      <h3>Opção C</h3>
+      <button onclick="vote(2)">Votar</button>
     </div>
 
     <div class="voting-option">
-        <img src="crepe.jpg" alt="Imagem de um crepe"><br>
-        <button onclick="vote(4)">Opção D</button>
+      <img src="crepe.jpg" alt="Crepe">
+      <h3>Opção D</h3>
+      <button onclick="vote(3)">Votar</button>
     </div>
 
     <div class="voting-option">
-        <img src="277814-original.jpg" alt="Imagem de uma sobremesa"><br>
-        <button onclick="vote(5)">Opção E</button>
+      <img src="277814-original.jpg" alt="Sobremesa">
+      <h3>Opção E</h3>
+      <button onclick="vote(4)">Votar</button>
     </div>
-</div>
 
-<section id="s1"><h2>Resultados A:</h2><p>0 votos</p></section>
-<section id="s2"><h2>Resultados B:</h2><p>0 votos</p></section>
-<section id="s3"><h2>Resultados C:</h2><p>0 votos</p></section>
-<section id="s4"><h2>Resultados D:</h2><p>0 votos</p></section>
-<section id="s5"><h2>Resultados E:</h2><p>0 votos</p></section>
+  </div>
 
-<script>
-let votes = [0, 0, 0, 0, 0]; // Array to store vote counts
+  <div class="results">
+    <h2>📊 Resultados em Tempo Real</h2>
 
-function vote(option) {
-    votes[option - 1]++; // Increment the appropriate vote count
-    document.querySelector(`section#s${option}`).innerHTML = `<h2>Resultados ${String.fromCharCode(64 + option)}:</h2><p>${votes[option - 1]} votos</p>`;
-}
-</script>
+    <div id="results-container"></div>
+
+    <div class="winner" id="winner">
+      Nenhum vencedor ainda.
+    </div>
+
+    <button class="reset-btn" onclick="resetVotes()">🔄 Resetar Votação</button>
+  </div>
+
+  <footer>
+    Projeto exageradamente estilizado, porque fazer simples seria entediante.
+  </footer>
+
+  <script>
+    const options = ["Opção A", "Opção B", "Opção C", "Opção D", "Opção E"];
+    let votes = [0, 0, 0, 0, 0];
+
+    function vote(index) {
+      votes[index]++;
+      updateResults();
+      salvarVotos();
+    }
+
+    function updateResults() {
+      const totalVotes = votes.reduce((a, b) => a + b, 0);
+      const resultsContainer = document.getElementById("results-container");
+      resultsContainer.innerHTML = "";
+
+      votes.forEach((voteCount, index) => {
+        const percentage = totalVotes > 0 ? ((voteCount / totalVotes) * 100).toFixed(1) : 0;
+
+        resultsContainer.innerHTML += `
+          <div class="result-item">
+            <div class="result-label">
+              <span>${options[index]}</span>
+              <span>${voteCount} votos (${percentage}%)</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" style="width: ${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      showWinner();
+    }
+
+    function showWinner() {
+      const maxVotes = Math.max(...votes);
+
+      if (maxVotes === 0) {
+        document.getElementById("winner").innerText = "Nenhum vencedor ainda.";
+        return;
+      }
+
+      const winners = options.filter((_, index) => votes[index] === maxVotes);
+
+      if (winners.length > 1) {
+        document.getElementById("winner").innerText =
+          `🤝 Empate entre: ${winners.join(", ")}`;
+      } else {
+        document.getElementById("winner").innerText =
+          `🏆 Vencedor atual: ${winners[0]}`;
+      }
+    }
+
+    function resetVotes() {
+      votes = [0, 0, 0, 0, 0];
+      salvarVotos();
+      updateResults();
+    }
+
+    function salvarVotos() {
+      localStorage.setItem("votacaoComida", JSON.stringify(votes));
+    }
+
+    function carregarVotos() {
+      const dados = localStorage.getItem("votacaoComida");
+      if (dados) {
+        votes = JSON.parse(dados);
+      }
+      updateResults();
+    }
+
+    carregarVotos();
+  </script>
 
 </body>
 </html>
+```
